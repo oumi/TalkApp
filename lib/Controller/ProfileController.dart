@@ -9,6 +9,9 @@ import 'package:flutter/cupertino.dart';
 
 class ProfileController extends StatefulWidget{
   String id ;
+
+  var _controller = TextEditingController();
+
   ProfileController(String id ){
     this.id= id;
   }
@@ -65,19 +68,23 @@ class ProfileControllerState extends State<ProfileController>{
               },
             ),
             new TextField(
-              decoration: new InputDecoration(hintText: user.surname),
+              decoration: new InputDecoration(
+                  hintText: user.surname
+              ),
               onChanged: (string){
                 setState(() {
                   surname = string;
                 });
               },
             ),
+            new SizedBox(height: 30.0),
             new RaisedButton(
               padding: EdgeInsets.all(10.0),
               color: Colors.indigoAccent,
               onPressed: _saveChanges,
               child: new Text ("Guardar cambios", style: new TextStyle(color: Colors.white, fontSize: 20.0),),
             ),
+
             new FlatButton(
               onPressed: (){
                 _logOut(context);
@@ -137,7 +144,7 @@ class ProfileControllerState extends State<ProfileController>{
         },
         child: new Text("SI"))
     );
-      widgets.add(new FlatButton(
+    widgets.add(new FlatButton(
         onPressed: ()=> Navigator.of(build).pop(),
         child: new Text("NO"))
     );
@@ -147,12 +154,12 @@ class ProfileControllerState extends State<ProfileController>{
   _getUser() {
     FirebaseHelper().getUser(widget.id).then((user) {
       if (this.mounted){ //this solution is used to solve the problem: Unhandled Exception: setState() called after dispose(): ProfileControllerState#25e81(lifecycle state: defunct, not mounted)
-      setState(( ) {
-        this.user = user;
-      });
-    }
+        setState(( ) {
+          this.user = user;
+        });
+      }
     });
   }
 
-  }
+}
 

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:file_picker/file_picker.dart';
-import 'dart:io';
 import 'package:inedithos_chat/Model/FirebaseHelper.dart';
 import 'package:inedithos_chat/Model/User.dart';
+import 'dart:io';
+import 'dart:async';
+
 
 class TextAreaWidget extends StatefulWidget{
   User partner;
@@ -70,9 +72,11 @@ class AreaState extends State<TextAreaWidget>{
   }
 
   Future<void> takePicture(ImageSource source) async{
+    print('entro ');
     File file = await ImagePicker.pickImage(source: source, maxWidth: 1000.0, maxHeight: 1000.0);
     String date = new DateTime.now().millisecondsSinceEpoch.toString();
     FirebaseHelper().saveFile(file, FirebaseHelper().storage_message.child(widget.id).child(date)).then((string){
+      print('hola');
       FirebaseHelper().sendMessage(widget.partner, me, null, string, null);
     });
   }
@@ -81,11 +85,14 @@ class AreaState extends State<TextAreaWidget>{
     File file = await FilePicker.getFile(type: FileType.CUSTOM, fileExtension: 'pdf');
     if (file != null) {
       String date = new DateTime.now().millisecondsSinceEpoch.toString();
+      date = date+'_'+file.path.split('/').last;
+      print(date);
       FirebaseHelper().saveFile(file, FirebaseHelper().storage_message.child(widget.id).child(date))
           .then(( string ) {
+            print('string');
         FirebaseHelper().sendMessage(widget.partner, me, null, null, string);
       });
-
     }
+
   }
 }

@@ -7,6 +7,7 @@ class Message {
   String to;
   String text;
   String imageUrl;
+  String fileUrl;
   String dateString;
   Message(DataSnapshot snapshot){
     Map value = snapshot.value;
@@ -16,6 +17,7 @@ class Message {
     imageUrl = value["imageUrl"];
     String date = value["dateString"];
     dateString = DateHelper().getDate(date);
+    fileUrl = value["fileUrl"];
   }
 
 

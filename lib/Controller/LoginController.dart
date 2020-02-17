@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:inedithos_chat/Controller/DialogBoxController.dart';
 import 'package:inedithos_chat/Model/FirebaseHelper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:io';
 
 class LoginController extends StatefulWidget {
   LoginControllerState createState() => new LoginControllerState();
@@ -16,30 +17,34 @@ class LoginControllerState extends State<LoginController>{
   String _password;
   String _name;
   String _surname;
+  bool _obscureText = true;
+  String _title = 'Login';
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(title: new Text('Login'),),
-      body: new Container(
+      appBar: new AppBar(title: new Text(_title),),
+      body: new SingleChildScrollView(
         child: new Column(
           children: <Widget>[
             new Container(
-              padding: EdgeInsets.only(top:30),
-              width: MediaQuery.of(context).size.width ,
+              margin: EdgeInsets.all(20.0),
+
+              // padding: EdgeInsets.only(top:30),
+              width: MediaQuery.of(context).size.width -40 ,
               height: MediaQuery.of(context).size.height /2,
-              /*  child: new Card(
-                elevation: 8.5,
-                child:  new Container(
-                  margin :EdgeInsets.only(left:6.0, right:6.0),*/
-              child: new Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                mainAxisSize: MainAxisSize.min,
-                children:cardElements(),
+              child: new Card(
+                  elevation: 8.5,
+                  child:  new Container(
+                    margin :EdgeInsets.only(left:6.0, right:6.0),
+                    child:  new Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children:cardElements(),
+                    ),
+                  )
               ),
-              //  )
-              //  ),
             ),
+
             new RaisedButton(
               onPressed: _manageLog,
               color: Colors.indigoAccent,
@@ -49,10 +54,10 @@ class LoginControllerState extends State<LoginController>{
                     fontSize: 20.0
                 ),
               ),
-            )
+            ),
           ],
         ),
-    ),
+      ),
     );
   }
 
@@ -99,25 +104,13 @@ class LoginControllerState extends State<LoginController>{
     }
     print('_manageLog  finishing');
   }
-
-
-
   List<Widget> cardElements () {
     List<Widget> widgets = [];
-
     widgets.add(
-      /* new TextField(
-       decoration: new InputDecoration(hintText: "Introducir el correo electrónico"),
-       onChanged: (string){
-         setState(() {
-           _mail = string;
-         });
-       }
-     )*/
-     Expanded(child: Container(
+      Container(
         width: MediaQuery.of(context).size.width/1.2,
-      // margin: EdgeInsets.all(30),//only(top: 50),
-      //  height: 45,
+        //  height: MediaQuery.of(context).size.height/10,
+        //   margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/50),
         padding: EdgeInsets.only(
             top: 4,left: 16, right: 16, bottom: 4
         ),
@@ -131,25 +124,25 @@ class LoginControllerState extends State<LoginController>{
             ]
         ),
         child: TextField(
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            icon: Icon(Icons.email,
-              color: Colors.indigoAccent,
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              icon: Icon(Icons.email,
+                color: Colors.indigoAccent,
+              ),
+              hintText: 'Email',
             ),
-            hintText: 'Email',
-          ),
-        onChanged: (string){
-      setState(() {
-        _mail = string;
-      });}
+            onChanged: (string){
+              setState(() {
+                _mail = string;
+              });}
         ),
-      ),)
+      ),
     );
     widgets.add(
-      Expanded(child:Container(
+      Container(
         width: MediaQuery.of(context).size.width/1.2,
-      //  height: 35,
-      //  margin: EdgeInsets.all(30),//only(top: 50),
+        //  height: MediaQuery.of(context).size.height/10,
+        //  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/50),
         padding: EdgeInsets.only(
             top: 4,left: 16, right: 16, bottom: 4
         ),
@@ -163,11 +156,24 @@ class LoginControllerState extends State<LoginController>{
             ]
         ),
         child: new TextField(
-            obscureText: true,
+            autofocus: false,
+            obscureText: _obscureText,
             decoration: InputDecoration(
               border: InputBorder.none,
               icon: Icon(Icons.vpn_key,
                 color: Colors.indigoAccent,
+              ),
+              suffixIcon: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _obscureText = !_obscureText;
+                  });
+                },
+                child: Icon(
+                  _obscureText ? Icons.visibility : Icons.visibility_off,
+                  semanticLabel:
+                  _obscureText ? 'show password' : 'hide password',
+                ),
               ),
               hintText: 'Contraseña',
             ),
@@ -177,15 +183,15 @@ class LoginControllerState extends State<LoginController>{
               });}
         ),
       ),
-    ));
+    );
     // si no estamos connectados
 
     if (_log == false){
       widgets.add(
-        Expanded(child:Container(
+        Container(
           width: MediaQuery.of(context).size.width/1.2,
-         // height: 45,
-          //margin: EdgeInsets.only(top: 32),
+          //  height: MediaQuery.of(context).size.height/30,
+          //margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/50),
           padding: EdgeInsets.only(
               top: 4,left: 16, right: 16, bottom: 4
           ),
@@ -211,13 +217,13 @@ class LoginControllerState extends State<LoginController>{
                   _name = string;
                 });}
           ),
-        )),
+        ),
       );
       widgets.add(
-        Expanded(child:Container(
+        Container(
           width: MediaQuery.of(context).size.width/1.2,
-        //  height: 45,
-       //   margin: EdgeInsets.only(top: 32),
+          // height: MediaQuery.of(context).size.height/20,
+          //  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/50),
           padding: EdgeInsets.only(
               top: 4,left: 16, right: 16, bottom: 4
           ),
@@ -243,7 +249,7 @@ class LoginControllerState extends State<LoginController>{
                   _surname = string;
                 });}
           ),
-        )),
+        ),
       );
 
     }
@@ -260,14 +266,15 @@ class LoginControllerState extends State<LoginController>{
               padding: const EdgeInsets.only(
                   top: 16, right: 32
               ),
-              child: new Text((_log == true)
-                  ? "Para crear una cuenta, pulsar aqui"
-                  : " Ya tenéis una cuenta, pulsar aqui",
+              child: new Text(
+                (_log == true)
+                  ? "¿No tiene cuenta?, pulsa aquí"
+                  : "¿Ya tiene cuenta?, pulsa aquí",
                 style: TextStyle(
-                    color: Colors.indigoAccent
+                    color: Colors.black54
                 ),
               ),
-        )
+            )
         )
     );
     return widgets;

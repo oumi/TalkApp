@@ -50,14 +50,18 @@ class ChatBubble extends StatelessWidget{
                 color: bubbleColor,
                 child:new Container(
                     padding: EdgeInsets.all(10.0),
-                    child: (message.imageUrl == null)
+                    child:
+                     (message.imageUrl == null)
+                        ? ((message.fileUrl == null)
                         ? new Text(
-                      message.text ?? "",
-                      style: new TextStyle(
-                          color: textColor,
-                          fontSize: 15.0,
-                          fontStyle: FontStyle.italic
-                      ),
+                          message.text ?? "",
+                          style: new TextStyle(
+                              color: textColor,
+                              fontSize: 15.0,
+                              fontStyle: FontStyle.italic
+                            ),
+                          )
+                        : new Text(message.fileUrl)
                     )
                         : new CustomImage(message.imageUrl, null, null)
                 ),

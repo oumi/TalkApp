@@ -69,14 +69,14 @@ class FirebaseHelper {
     return new User(snapshot);
   }
 
-  sendMessage(User user, User me, String text, String imageUrl, String fileUrl){
+  sendMessage(User user, User me, String text,   String imageUrl,String fileUrl){
     String date = new DateTime.now().millisecondsSinceEpoch.toString();
   Map map = {
     "from": me.id,
     "to": user.id,
     "text": text,
     "imageUrl": imageUrl,
-    "url": fileUrl,
+    "fileUrl": fileUrl,
     "dateString": date
   };
   base_message.child(getMessageRef(me.id, user.id)).child(date).set(map);
@@ -107,10 +107,13 @@ class FirebaseHelper {
   final StorageReference storage_users = base_storage.child("users");
   final StorageReference storage_message = base_storage.child("messages");
 
+
   Future<String> saveFile ( File file, StorageReference ref) async {
     StorageUploadTask storageUploadTask = ref.putFile(file);
     StorageTaskSnapshot snapshot = await storageUploadTask.onComplete;
     String url = await snapshot.ref.getDownloadURL();
+    print( 'aqui');
+    print( url);
     return url;
   }
 
