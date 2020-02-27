@@ -37,7 +37,7 @@ class FirebaseHelper {
       "uid": uid,
       "name": name,
       "surname": surname,
-      "validated": 'No',
+      "role": 'DEF',
     };
     addUser(uid, map);
     return user;
@@ -67,6 +67,11 @@ class FirebaseHelper {
   Future<User> getUser(String id) async {
     DataSnapshot snapshot = await base_user.child(id).once();
     return new User(snapshot);
+  }
+
+  Future<String> getRole(String id) async {
+    DataSnapshot snapshot = await base_user.child(id).once();
+    return new User(snapshot).role;
   }
 
   sendMessage(User user, User me, String text,   String imageUrl,String fileUrl){
