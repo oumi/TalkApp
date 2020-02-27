@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:inedithos_chat/Widgets/Const.dart';
 
 class CustomImage extends StatelessWidget{
   String imageUrl;
@@ -18,7 +19,7 @@ class CustomImage extends StatelessWidget{
     if (imageUrl == null){
         return new CircleAvatar(
       radius: radius ?? 0.0,
-      backgroundColor: Colors.indigoAccent,
+      backgroundColor: Colors.amber[600],
       child: new Text(initiales ?? "",
           style: new TextStyle(color: Colors.white, fontSize: radius)),
     );
@@ -53,7 +54,7 @@ class CustomImage extends StatelessWidget{
         context: context,
         barrierDismissible: true,
         builder: ( BuildContext build ) {
-          return new Container(
+          return   new Container(
             width: MediaQuery
                 .of(context)
                 .size
@@ -65,15 +66,16 @@ class CustomImage extends StatelessWidget{
             child: new Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                new Image(image: provider),
+                Flexible(child: new Image(image: provider)),
                 new RaisedButton(
-                   color: Colors.indigoAccent,
+                   color: teal400,
                     onPressed: ( ) => Navigator.of(build).pop(),
                     child: new Text("OK", style: new TextStyle(
                         color: Colors.white, fontSize: 20.0),))
               ],
             ),
           );
+
         }
     );
   }

@@ -6,6 +6,7 @@ class User {
   String surname;
   String imageUrl;
   String initiales;
+  String rol;
 
   User(DataSnapshot snapshot){
     Map map = snapshot.value;
@@ -13,6 +14,7 @@ class User {
     id = map["uid"];
     surname = map["surname"];
     imageUrl = map["imageUrl"];
+    rol = map["rol"];
     if (name!= null  && name.length >0){
       initiales = name[0];
     }
@@ -31,6 +33,7 @@ class User {
       "surname":surname,
       "name": name,
       "imageUrl": imageUrl,
+      "rol": rol,
       "uid":id
     };
   }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:inedithos_chat/Model/Message.dart';
 import 'package:inedithos_chat/Model/User.dart';
 import 'package:inedithos_chat/Widgets/CustomImage.dart';
+import 'package:inedithos_chat/Widgets/CustomPdf.dart';
+import 'dart:math';
 
 
 class ChatBubble extends StatelessWidget{
@@ -61,7 +63,7 @@ class ChatBubble extends StatelessWidget{
                               fontStyle: FontStyle.italic
                             ),
                           )
-                        : new Text(message.fileUrl)
+                        : new CustomPdf(message.fileUrl)
                     )
                         : new CustomImage(message.imageUrl, null, null)
                 ),

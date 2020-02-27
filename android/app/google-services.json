@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "741225619244",
+    "firebase_url": "https://chatapp-f48f9.firebaseio.com",
+    "project_id": "chatapp-f48f9",
+    "storage_bucket": "chatapp-f48f9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:741225619244:android:9ba6223090d71f85c21689",
+        "android_client_info": {
+          "package_name": "com.boucraa.chat_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "741225619244-svi7anleu3bl736noa9mkakfos68ehon.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsNRmcdgQBWATbzx6A2KdeH9uyUEzK5wI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "741225619244-svi7anleu3bl736noa9mkakfos68ehon.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:741225619244:android:e478b97b269a3ac8c21689",
+        "android_client_info": {
+          "package_name": "com.boucraa.inedithos_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "741225619244-svi7anleu3bl736noa9mkakfos68ehon.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsNRmcdgQBWATbzx6A2KdeH9uyUEzK5wI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "741225619244-svi7anleu3bl736noa9mkakfos68ehon.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

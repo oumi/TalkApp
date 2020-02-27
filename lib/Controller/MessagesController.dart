@@ -26,7 +26,7 @@ class MessagesControllerState extends State<MessagesController>{
       itemBuilder: (BuildContext context, DataSnapshot snapshot, Animation<double> animation, int index){
         Conversation conversation = new Conversation(snapshot);
         String subtitle = (conversation.id == widget.id)? "Me: " : "";
-        subtitle += conversation.last_message ?? "imágen enviada";
+        subtitle += conversation.last_message ?? "Envío realizado";
         return new ListTile(
           leading: new CustomImage(conversation.user.imageUrl, conversation.user.initiales, 20.0),
           title: new Text("${conversation.user.name}  ${conversation.user.surname}"),

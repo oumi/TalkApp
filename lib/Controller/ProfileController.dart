@@ -6,6 +6,9 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:inedithos_chat/Widgets/DialogBox.dart';
+import 'package:inedithos_chat/Widgets/Const.dart';
+
 
 class ProfileController extends StatefulWidget{
   String id ;
@@ -23,6 +26,8 @@ class ProfileControllerState extends State<ProfileController>{
   User user;
   String name;
   String surname;
+  final FocusNode focusNodeName = new FocusNode();
+  final FocusNode focusNodeSurname = new FocusNode();
 
   @override
   void initState() {
@@ -31,11 +36,21 @@ class ProfileControllerState extends State<ProfileController>{
     _getUser();
   }
 
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return (user == null)
-        ? new Center(child: new Text("Cargando ..."))
+        ? new Center(
+      child: new Text(
+        "Cargando ...",
+        style: new TextStyle(
+            fontSize: 30.0,
+            fontStyle: FontStyle.italic,
+            color: teal400
+        ),
+      ),
+    )
         : new SingleChildScrollView(
       child: new Container(
         margin: EdgeInsets.all(20.0),
@@ -66,6 +81,7 @@ class ProfileControllerState extends State<ProfileController>{
                   name = string;
                 });
               },
+              focusNode: focusNodeName,
             ),
             new TextField(
               decoration: new InputDecoration(
@@ -76,21 +92,17 @@ class ProfileControllerState extends State<ProfileController>{
                   surname = string;
                 });
               },
+              focusNode: focusNodeSurname,
             ),
             new SizedBox(height: 30.0),
             new RaisedButton(
               padding: EdgeInsets.all(10.0),
-              color: Colors.indigoAccent,
+              color: teal400,
               onPressed: _saveChanges,
               child: new Text ("Guardar cambios", style: new TextStyle(color: Colors.white, fontSize: 20.0),),
             ),
 
-            new FlatButton(
-              onPressed: (){
-                _logOut(context);
-              },
-              child: new Text ("Cerrar sesión", style: new TextStyle(color: Colors.indigoAccent, fontSize: 20.0),),
-            )
+
           ],
         ),
       ),
@@ -98,15 +110,27 @@ class ProfileControllerState extends State<ProfileController>{
 
   }
   _saveChanges(){
+    focusNodeName.unfocus();
+    focusNodeSurname.unfocus();
+    DialogBox dialogBox = DialogBox();
+    bool _nameChanged = false;
+    bool _surnameChanged = false;
     Map map = user.toMap();
     if (surname!= null) {
       map["surname"] = surname;
+      _surnameChanged = true;
     }
     if (name != null && name != "" ){
       map["name"] = name;
+      _nameChanged = true;
     }
     FirebaseHelper().addUser(user.id, map);
     _getUser();
+    if (_nameChanged || _surnameChanged) {
+      dialogBox.information(
+          context, "Cambios guardados",
+          'Los cambios han sido guardados correctamente!');
+    }
   }
 
   Future<void> _takePicture(ImageSource source) async{
@@ -120,36 +144,6 @@ class ProfileControllerState extends State<ProfileController>{
     });
   }
 
-  Future<void> _logOut(BuildContext context) async{
-    Text title = new Text("Cerrar sesión");
-    Text subtitle = new Text("Seguro que desea cerrar la sesión");
-    return showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext build){
-          return (Theme.of(context).platform == TargetPlatform.iOS )
-              ? new CupertinoAlertDialog(title: title, content: subtitle, actions: _actions(build),)
-              : new AlertDialog(title: title, content: subtitle, actions: _actions(build));
-        }
-    );
-  }
-
-  List<Widget> _actions (BuildContext build){
-    List<Widget> widgets = [];
-    widgets.add(new FlatButton(
-        onPressed:(){
-          FirebaseHelper().handleLogOut().then((bool){
-            Navigator.of(build).pop();
-          });
-        },
-        child: new Text("SI"))
-    );
-    widgets.add(new FlatButton(
-        onPressed: ()=> Navigator.of(build).pop(),
-        child: new Text("NO"))
-    );
-    return widgets;
-  }
 
   _getUser() {
     FirebaseHelper().getUser(widget.id).then((user) {

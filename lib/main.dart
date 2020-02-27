@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'Controller/LoginController.dart';
 import 'Controller/MainController.dart';
+import 'package:inedithos_chat/Widgets/Const.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,7 +14,8 @@ class MyApp extends StatelessWidget {
       title: 'chat App Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.indigo,
+       // primarySwatch: teal,
+       primaryColor: teal,
       ),
       home: _manageAuth(),
     );

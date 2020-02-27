@@ -2,10 +2,10 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:inedithos_chat/Controller/DialogBoxController.dart';
+import 'package:inedithos_chat/Widgets/DialogBox.dart';
 import 'package:inedithos_chat/Model/FirebaseHelper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'dart:io';
+import 'package:inedithos_chat/Widgets/Const.dart';
 
 class LoginController extends StatefulWidget {
   LoginControllerState createState() => new LoginControllerState();
@@ -18,7 +18,7 @@ class LoginControllerState extends State<LoginController>{
   String _name;
   String _surname;
   bool _obscureText = true;
-  String _title = 'Login';
+  String _title = appName;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class LoginControllerState extends State<LoginController>{
 
             new RaisedButton(
               onPressed: _manageLog,
-              color: Colors.indigoAccent,
+              color: teal400,
               child: new Text((_log== true)? 'Connectarse':'Registrarse',
                 style: new TextStyle(
                     color: Colors.white,
@@ -63,7 +63,6 @@ class LoginControllerState extends State<LoginController>{
 
   _manageLog(){
     DialogBox dialogBox = DialogBox();
-    print('_manageLog  starting');
     if (_mail != null ){
       if ( _password != null){
         if (_log == true){
@@ -118,8 +117,8 @@ class LoginControllerState extends State<LoginController>{
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                  color: Colors.blue,
-                  blurRadius: 5
+                  color: teal400,
+                  blurRadius: blurRad
               )
             ]
         ),
@@ -127,7 +126,7 @@ class LoginControllerState extends State<LoginController>{
             decoration: InputDecoration(
               border: InputBorder.none,
               icon: Icon(Icons.email,
-                color: Colors.indigoAccent,
+                color: teal400,
               ),
               hintText: 'Email',
             ),
@@ -150,8 +149,8 @@ class LoginControllerState extends State<LoginController>{
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                  color: Colors.blue,
-                  blurRadius: 5
+                  color: teal400,
+                  blurRadius: blurRad
               )
             ]
         ),
@@ -161,7 +160,7 @@ class LoginControllerState extends State<LoginController>{
             decoration: InputDecoration(
               border: InputBorder.none,
               icon: Icon(Icons.vpn_key,
-                color: Colors.indigoAccent,
+                color: teal400,
               ),
               suffixIcon: GestureDetector(
                 onTap: () {
@@ -199,8 +198,8 @@ class LoginControllerState extends State<LoginController>{
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
-                    color: Colors.grey,
-                    blurRadius: 5
+                    color: teal400,
+                    blurRadius: blurRad
                 )
               ]
           ),
@@ -208,7 +207,7 @@ class LoginControllerState extends State<LoginController>{
               decoration: InputDecoration(
                 border: InputBorder.none,
                 icon: Icon(Icons.person_outline,
-                  color: Colors.indigoAccent,
+                  color: teal400,
                 ),
                 hintText: 'Nombre',
               ),
@@ -231,8 +230,8 @@ class LoginControllerState extends State<LoginController>{
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
-                    color: Colors.blue,
-                    blurRadius: 5
+                    color: teal400,
+                    blurRadius: blurRad
                 )
               ]
           ),
@@ -240,7 +239,7 @@ class LoginControllerState extends State<LoginController>{
               decoration: InputDecoration(
                 border: InputBorder.none,
                 icon: Icon(Icons.person_outline,
-                  color: Colors.indigoAccent,
+                  color: teal400,
                 ),
                 hintText: 'Apellido',
               ),

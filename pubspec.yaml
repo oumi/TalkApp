@@ -32,6 +32,14 @@ dependencies:
   intl: ^0.16.1
   file_picker: ^1.4.3+2
   flutter_launcher_icons: ^0.7.4
+  grouped_list: ^1.2.1
+  flutter_pdfview: ^1.0.0+10
+  path_provider: ^1.6.1
+  http:
+  dio: any
+  open_file: any
+  downloads_path_provider: ^0.1.0
+  flutter_local_notifications: ^0.8.4
 
 
 
@@ -42,7 +50,7 @@ dev_dependencies:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "images/inedithosIcon.png"
+  image_path: "images/Logo.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
