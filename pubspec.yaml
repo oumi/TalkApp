@@ -40,6 +40,7 @@ dependencies:
   open_file: any
   downloads_path_provider: ^0.1.0
   flutter_local_notifications: ^0.8.4
+  firebase_messaging: ^6.0.9
 
 
 
@@ -47,10 +48,15 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  flutter_launcher_name: ^0.0.1
+
 flutter_icons:
   android: "launcher_icon"
   ios: true
   image_path: "images/Logo.png"
+
+flutter_launcher_name:
+  name: "yourNewAppLauncherName"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:inedithos_chat/Widgets/DialogBox.dart';
@@ -19,6 +17,7 @@ class LoginControllerState extends State<LoginController>{
   String _surname;
   bool _obscureText = true;
   String _title = appName;
+  String _role ;//= '';
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +28,8 @@ class LoginControllerState extends State<LoginController>{
           children: <Widget>[
             new Container(
               margin: EdgeInsets.all(20.0),
-
-              // padding: EdgeInsets.only(top:30),
               width: MediaQuery.of(context).size.width -40 ,
-              height: MediaQuery.of(context).size.height /2,
+              height: MediaQuery.of(context).size.height /1.5,
               child: new Card(
                   elevation: 8.5,
                   child:  new Container(
@@ -48,7 +45,7 @@ class LoginControllerState extends State<LoginController>{
             new RaisedButton(
               onPressed: _manageLog,
               color: teal400,
-              child: new Text((_log== true)? 'Connectarse':'Registrarse',
+              child: new Text((_log== true)? 'Conectarse':'Registrarse',
                 style: new TextStyle(
                     color: Colors.white,
                     fontSize: 20.0
@@ -75,12 +72,18 @@ class LoginControllerState extends State<LoginController>{
         }else {
           if (_name != null) {
             if (_surname!= null){
-              //crear cuenta
-              FirebaseHelper().handleSignUp(_mail, _password, _name, _surname).then((FirebaseUser user){
-                print("Se ha creado el usuario ${user.uid}");
-              }).catchError((error) {
-                dialogBox.information(context, "Error",error.toString());
-              });
+              if (_role!= null  || _role =='') {
+                //crear cuenta
+                FirebaseHelper()
+                    .handleSignUp(_mail, _password, _name, _surname, _role)
+                    .then(( FirebaseUser user ) {
+                  print("Se ha creado el usuario ${user.uid}");
+                }).catchError(( error ) {
+                  dialogBox.information(context, "Error", error.toString());
+                });
+              }else {
+                dialogBox.information(context, "Aviso","Para poder regitrarse, Introduzca su rol");
+              }
             }else {
               //Aviso apellidos
               dialogBox.information(context, "Aviso","Para poder regitrarse, Introduzca sus apellidos");
@@ -101,7 +104,7 @@ class LoginControllerState extends State<LoginController>{
       print('_manageLog  mail');
       dialogBox.information(context, "Aviso", "No se ha introducido el correo");
     }
-    print('_manageLog  finishing');
+
   }
   List<Widget> cardElements () {
     List<Widget> widgets = [];
@@ -183,7 +186,7 @@ class LoginControllerState extends State<LoginController>{
         ),
       ),
     );
-    // si no estamos connectados
+    // si no estamos conectados
 
     if (_log == false){
       widgets.add(
@@ -251,8 +254,94 @@ class LoginControllerState extends State<LoginController>{
         ),
       );
 
-    }
+      widgets.add(
+        Container(
+          width: MediaQuery.of(context).size.width/1.2,
+          // height: MediaQuery.of(context).size.height/20,
+          //  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/50),
+          padding: EdgeInsets.only(
+              top: 4,left: 16, right: 16, bottom: 4
+          ),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                    color: teal400,
+                    blurRadius: blurRad
+                )
+              ]
+          ),
+          child: new DropdownButtonHideUnderline(
+            child:DropdownButton(
+              items: defaultRoles.map((String value) {
+                return new DropdownMenuItem(
+                  value: value,
+                  child: new Text(value),
+                );
+              }).toList(),
+            onChanged: (String newValue) {
+              setState(() {
+                _role = newValue;
+               // state.didChange(newValue);
+              });
+            },
 
+              hint: Text('Role'),
+              value: _role,
+              isDense: true,
+          ),),
+        ),
+      );
+    /*  widgets.add(
+        Container(
+          width: MediaQuery.of(context).size.width/1.2,
+          // height: MediaQuery.of(context).size.height/20,
+          //  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/50),
+          padding: EdgeInsets.only(
+              top: 4,left: 16, right: 16, bottom: 4
+          ),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                    color: teal400,
+                    blurRadius: blurRad
+                )
+              ]
+          ),
+          child: new FormField(
+            builder: (FormFieldState state) {
+              return InputDecorator(
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  icon: Icon(Icons.supervised_user_circle, color: teal400,),
+                  labelText: 'Role',
+                ),
+                isEmpty: _role == '',
+             //   child: new DropdownButtonHideUnderline(
+                  child: new DropdownButton(
+                    value: _role,
+                    isDense: true,
+                    onChanged: (String newValue) {
+                      setState(() {
+                        _role = newValue;
+                        state.didChange(newValue);
+                      });
+                    },
+                    items: defaultRoles.map((String value) {
+                      return new DropdownMenuItem(
+                        value: value,
+                        child: new Text(value),
+                      );
+                    }).toList(),
+                  ),
+                //),
+              );
+            },
+          ),
+        ),
+      );*/
+    }
     widgets.add(
         new FlatButton(
             onPressed: (){

@@ -3,7 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 import'package:inedithos_chat/Model/User.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io' ;
-import 'package:inedithos_chat/Model/User.dart';
+import 'package:inedithos_chat/Widgets/Const.dart';
 
 class FirebaseHelper {
   //connexion
@@ -24,7 +24,7 @@ class FirebaseHelper {
 
   }
 
-  Future<FirebaseUser> handleSignUp(String email, String password, String name, String surname) async {
+  Future<FirebaseUser> handleSignUp(String email, String password, String name, String surname, String role) async {
 
     AuthResult result = await auth.createUserWithEmailAndPassword(email: email, password: password);
     final FirebaseUser user = result.user;
@@ -37,7 +37,8 @@ class FirebaseHelper {
       "uid": uid,
       "name": name,
       "surname": surname,
-      "role": 'DEF',
+      "role": role,
+      "room": defaultRoom,
     };
     addUser(uid, map);
     return user;
@@ -67,11 +68,6 @@ class FirebaseHelper {
   Future<User> getUser(String id) async {
     DataSnapshot snapshot = await base_user.child(id).once();
     return new User(snapshot);
-  }
-
-  Future<String> getRole(String id) async {
-    DataSnapshot snapshot = await base_user.child(id).once();
-    return new User(snapshot).role;
   }
 
   sendMessage(User user, User me, String text,   String imageUrl,String fileUrl){
@@ -117,8 +113,6 @@ class FirebaseHelper {
     StorageUploadTask storageUploadTask = ref.putFile(file);
     StorageTaskSnapshot snapshot = await storageUploadTask.onComplete;
     String url = await snapshot.ref.getDownloadURL();
-    print( 'aqui');
-    print( url);
     return url;
   }
 

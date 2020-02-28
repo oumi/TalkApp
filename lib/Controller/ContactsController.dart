@@ -43,7 +43,7 @@ class ContactsControllerState extends State<ContactsController> {
     // get only the users that have the same role than the current one
    // return
      :new FirebaseAnimatedList(
-          query: FirebaseHelper().base_user.orderByChild("role").equalTo(currentUser.role),
+          query: FirebaseHelper().base_user.orderByChild("room").equalTo(currentUser.room),
           //FirebaseHelper().getRole(widget.id)
           sort: ( a, b ) => a.value['name'].toString().toLowerCase().compareTo(
               b.value['name'].toString().toLowerCase()),
@@ -58,7 +58,7 @@ class ContactsControllerState extends State<ContactsController> {
                 leading: new CustomImage(
                     newUser.imageUrl, newUser.initiales, 20.0),
                 title: new Text("${newUser.name} ${newUser.surname}"),
-                subtitle: new Text((newUser.role == null)
+                subtitle: new Text((newUser.role == null )
                     ? ""
                     : "${newUser.role}"
                     , style: TextStyle(
