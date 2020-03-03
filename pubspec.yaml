@@ -39,8 +39,8 @@ dependencies:
   dio: any
   open_file: any
   downloads_path_provider: ^0.1.0
-  flutter_local_notifications: ^0.8.4
   firebase_messaging: ^6.0.9
+  flutter_local_notifications: ^1.2.0+3
 
 
 

@@ -7,6 +7,7 @@ import 'package:inedithos_chat/Controller/ProfileController.dart';
 import 'package:inedithos_chat/Controller/ContactsController.dart';
 import 'package:inedithos_chat/Widgets/Choice.dart';
 import 'package:inedithos_chat/Widgets/Const.dart';
+import 'package:inedithos_chat/Model/FirebaseNotifications.dart';
 
 class MainController extends StatefulWidget{
   MainState createState() => new MainState();
@@ -24,6 +25,7 @@ class MainState extends State<MainController>{
         id = uid;
       });
     });
+   // new FirebaseNotifications().intialise();
   }
 
   @override

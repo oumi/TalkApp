@@ -113,10 +113,8 @@ class LoginControllerState extends State<LoginController>{
         width: MediaQuery.of(context).size.width/1.2,
         //  height: MediaQuery.of(context).size.height/10,
         //   margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/50),
-        padding: EdgeInsets.only(
-            top: 4,left: 16, right: 16, bottom: 4
-        ),
-        decoration: BoxDecoration(
+        padding: EdgeInsets.all(4),
+             decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: [
               BoxShadow(
@@ -145,9 +143,7 @@ class LoginControllerState extends State<LoginController>{
         width: MediaQuery.of(context).size.width/1.2,
         //  height: MediaQuery.of(context).size.height/10,
         //  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/50),
-        padding: EdgeInsets.only(
-            top: 4,left: 16, right: 16, bottom: 4
-        ),
+        padding: EdgeInsets.all(4),
         decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: [
@@ -194,9 +190,7 @@ class LoginControllerState extends State<LoginController>{
           width: MediaQuery.of(context).size.width/1.2,
           //  height: MediaQuery.of(context).size.height/30,
           //margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/50),
-          padding: EdgeInsets.only(
-              top: 4,left: 16, right: 16, bottom: 4
-          ),
+          padding: EdgeInsets.all(4),
           decoration: BoxDecoration(
               color: Colors.white,
               boxShadow: [
@@ -226,9 +220,7 @@ class LoginControllerState extends State<LoginController>{
           width: MediaQuery.of(context).size.width/1.2,
           // height: MediaQuery.of(context).size.height/20,
           //  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/50),
-          padding: EdgeInsets.only(
-              top: 4,left: 16, right: 16, bottom: 4
-          ),
+          padding: EdgeInsets.all(4),
           decoration: BoxDecoration(
               color: Colors.white,
               boxShadow: [
@@ -259,9 +251,7 @@ class LoginControllerState extends State<LoginController>{
           width: MediaQuery.of(context).size.width/1.2,
           // height: MediaQuery.of(context).size.height/20,
           //  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/50),
-          padding: EdgeInsets.only(
-              top: 4,left: 16, right: 16, bottom: 4
-          ),
+          padding: EdgeInsets.all(18),
           decoration: BoxDecoration(
               color: Colors.white,
               boxShadow: [
@@ -286,7 +276,7 @@ class LoginControllerState extends State<LoginController>{
               });
             },
 
-              hint: Text('Role'),
+              hint: Text('  Rol'),
               value: _role,
               isDense: true,
           ),),

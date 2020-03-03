@@ -70,6 +70,8 @@ class FirebaseHelper {
     return new User(snapshot);
   }
 
+
+
   sendMessage(User user, User me, String text,   String imageUrl,String fileUrl){
     String date = new DateTime.now().millisecondsSinceEpoch.toString();
   Map map = {
