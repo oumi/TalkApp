@@ -14,7 +14,7 @@ https://www.youtube.com/watch?v=F41Y-rpdlVM
 y de alli ya seguir para el firebase-tools en la página de arriba.
 
 ## Errores 
-## Error funciones 
+## 1 Error funciones 
 Cuando se instalan las funciones con la página de arriba, da este error a la hora de hacer deploy
 
 0 info it worked if it ends with ok
