@@ -8,6 +8,7 @@ class User {
   String initiales;
   String role;
   String room;
+  String token;
 
   User(DataSnapshot snapshot){
     Map map = snapshot.value;
@@ -17,17 +18,18 @@ class User {
     imageUrl = map["imageUrl"];
     role = map["role"];
     room = map["room"];
+    token =  map["token"];
     if (name!= null  && name.length >0){
       initiales = name[0];
     }
     if (surname!= null && surname.length>0)
-      {
+    {
       if (initiales != null){
         initiales += surname[0];
       }else{
         initiales = surname[0];
       }
-      }
+    }
   }
 
   Map toMap(){
@@ -37,6 +39,7 @@ class User {
       "imageUrl": imageUrl,
       "role": role,
       "room":room,
+      "token":token,
       "uid":id
     };
   }

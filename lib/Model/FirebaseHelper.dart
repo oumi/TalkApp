@@ -24,7 +24,7 @@ class FirebaseHelper {
 
   }
 
-  Future<FirebaseUser> handleSignUp(String email, String password, String name, String surname, String role) async {
+  Future<FirebaseUser> handleSignUp(String email, String password, String name, String surname, String role ,String token) async {
 
     AuthResult result = await auth.createUserWithEmailAndPassword(email: email, password: password);
     final FirebaseUser user = result.user;
@@ -39,6 +39,7 @@ class FirebaseHelper {
       "surname": surname,
       "role": role,
       "room": defaultRoom,
+      "token": token,
     };
     addUser(uid, map);
     return user;

@@ -4,6 +4,9 @@ import 'package:inedithos_chat/Widgets/DialogBox.dart';
 import 'package:inedithos_chat/Model/FirebaseHelper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:inedithos_chat/Widgets/Const.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:inedithos_chat/Model/FirebaseNotifications.dart';
 
 class LoginController extends StatefulWidget {
   LoginControllerState createState() => new LoginControllerState();
@@ -17,8 +20,70 @@ class LoginControllerState extends State<LoginController>{
   String _surname;
   bool _obscureText = true;
   String _title = appName;
-  String _role ;//= '';
+  String _role ;
+  String _token ;
+  //Notifications
+  FirebaseMessaging firebaseMessaging = new FirebaseMessaging();
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  // new FirebaseNotifications().intialise();
 
+    var android = new AndroidInitializationSettings('logo');
+    var ios = new IOSInitializationSettings();
+    var platform = new InitializationSettings(android, ios);
+    flutterLocalNotificationsPlugin.initialize(platform);
+
+    firebaseMessaging.configure(
+        onLaunch: (Map<String , dynamic> msg){
+          print("onLaunch called ${(msg)}");
+          showNotification(msg);
+
+        },
+        onResume: (Map<String , dynamic> msg){
+          print("onResume called ${(msg)}");
+          showNotification(msg);
+
+        },
+        onMessage:  (Map<String , dynamic> msg){
+          print("onResume called ${(msg)}");
+          showNotification(msg);
+        }
+    );
+    firebaseMessaging.requestNotificationPermissions(
+        const IosNotificationSettings(sound: true , alert: true ,badge: true));
+
+    firebaseMessaging.onIosSettingsRegistered
+        .listen((IosNotificationSettings setting){
+      print("onIosSettingsRegistered");
+    });
+    firebaseMessaging.getToken().then((token){
+      _token = token;
+      //save_token(token);
+    });
+}
+
+  showNotification(Map<String , dynamic> msg) async{
+    var android = new AndroidNotificationDetails(
+        "1", "channelName", "channelDescription");
+    var iOS = new IOSNotificationDetails();
+    var platform = new NotificationDetails(android,iOS);
+
+    // msg.forEach((k,v){
+    //   title = k;
+    //   body = v;
+    //   setState(() {
+
+    //   });
+    // });
+    print (msg);
+    await flutterLocalNotificationsPlugin.show(0, msg['notification']['title'],
+        msg['notification']['body'],
+        platform);
+
+}
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -75,7 +140,7 @@ class LoginControllerState extends State<LoginController>{
               if (_role!= null  || _role =='') {
                 //crear cuenta
                 FirebaseHelper()
-                    .handleSignUp(_mail, _password, _name, _surname, _role)
+                    .handleSignUp(_mail, _password, _name, _surname, _role, _token)
                     .then(( FirebaseUser user ) {
                   print("Se ha creado el usuario ${user.uid}");
                 }).catchError(( error ) {
