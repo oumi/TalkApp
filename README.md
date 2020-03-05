@@ -1,16 +1,14 @@
 # inedithos_chat
 
-A new Flutter application.
+Aplicación de chat
 
-## Getting Started
+## Desarrollo 
+##Notificaciones 
 
-This project is a starting point for a Flutter application.
+Para las notificaciones, primero hay que instalar nodejs para poder utilizar las parte de "firebase functions" que están en javascript. 
+Hay que seguir las recomendaciones de la siguiente página: 
+https://firebase.google.com/docs/functions/get-started?fbclid=IwAR0HvmcTILsjCHVXqJgUjGlWCWwiWU4Dy0dR3aAeLIKaDXjWLUF4rwCc-7w
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+o bien pimero instalar node a partir de este video:
+https://www.youtube.com/watch?v=F41Y-rpdlVM
+y de alli ya seguir para el firebase-tools en la página de arriba.
