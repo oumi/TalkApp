@@ -5,7 +5,9 @@ import 'package:inedithos_chat/Widgets/CustomImage.dart';
 import 'package:inedithos_chat/Widgets/CustomPdf.dart';
 import 'dart:math';
 
-
+/*
+* Draw the chat bubble of every conversation
+ */
 class ChatBubble extends StatelessWidget{
   Message message;
   User partner;
@@ -34,6 +36,10 @@ class ChatBubble extends StatelessWidget{
     );
   }
 
+/*
+* In this list of chatBubbles, we distinguish between the current user and the partner
+* the color of the bubble and the position of the text changes depending on who is sending
+ */
   List<Widget> widgetsBubble(bool me){
     CrossAxisAlignment alignment = (me)? CrossAxisAlignment.end : CrossAxisAlignment.start;
     Color bubbleColor = (me)? Colors.green[200]: Colors.blue[300];

@@ -4,11 +4,11 @@ import 'package:inedithos_chat/Model/FirebaseHelper.dart';
 import 'package:inedithos_chat/Widgets/CustomImage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:inedithos_chat/Widgets/DialogBox.dart';
 import 'package:inedithos_chat/Widgets/Const.dart';
-
+import 'package:inedithos_chat/Widgets/Loading.dart';
+import 'package:inedithos_chat/lang/cas.dart';
 
 class ProfileController extends StatefulWidget{
   String id ;
@@ -41,16 +41,7 @@ class ProfileControllerState extends State<ProfileController>{
   Widget build(BuildContext context) {
     // TODO: implement build
     return (user == null)
-        ? new Center(
-      child: new Text(
-        "Cargando ...",
-        style: new TextStyle(
-            fontSize: 30.0,
-            fontStyle: FontStyle.italic,
-            color: teal400
-        ),
-      ),
-    )
+        ? Loading()
         : new SingleChildScrollView(
       child: new Container(
         margin: EdgeInsets.all(20.0),
@@ -99,7 +90,7 @@ class ProfileControllerState extends State<ProfileController>{
               padding: EdgeInsets.all(10.0),
               color: teal400,
               onPressed: _saveChanges,
-              child: new Text ("Guardar cambios", style: new TextStyle(color: Colors.white, fontSize: 20.0),),
+              child: new Text (cas_text_saveChanges, style: new TextStyle(color: Colors.white, fontSize: 20.0),),
             ),
 
 
@@ -128,8 +119,8 @@ class ProfileControllerState extends State<ProfileController>{
     _getUser();
     if (_nameChanged || _surnameChanged) {
       dialogBox.information(
-          context, "Cambios guardados",
-          'Los cambios han sido guardados correctamente!');
+          context, cas_note,
+          cas_note_changeSaved);
     }
   }
 

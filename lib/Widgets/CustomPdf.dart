@@ -8,7 +8,6 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:downloads_path_provider/downloads_path_provider.dart';
 
-
 class CustomPdf extends StatelessWidget{
   String fileUrl;
 
@@ -20,10 +19,9 @@ class CustomPdf extends StatelessWidget{
   Widget build(BuildContext context) {
 
     if (fileUrl != null) {
-      // guardar en la cache la imagen
+      // Show the pdf with pdf viewer
       return  new FlatButton(
         onPressed: (){
-
           getFileFromUrl(fileUrl).then((file) {
             Navigator.push(
                 context,
@@ -34,6 +32,7 @@ class CustomPdf extends StatelessWidget{
 
         },
         child:
+            //Draw how we see the pdf message
         new Column(
           //new Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -54,8 +53,6 @@ class CustomPdf extends StatelessWidget{
       File file = File("${dir.path}/mypdf.pdf");
 
       File urlFile = await file.writeAsBytes(bytes);
-      print ('urlFile');
-      print (urlFile);
       return urlFile;
     } catch (e) {
       throw Exception("Error opening url file");

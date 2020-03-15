@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-
+import 'package:inedithos_chat/lang/cas.dart';
+/*
+* Class to shape the dialogbox
+ */
 class DialogBox {
 
   Future<void> information(BuildContext context, String title,
@@ -27,7 +30,7 @@ class DialogBox {
     return new FlatButton(
       // onPressed: ()=>Navigator.of(context).pop(),
         onPressed: () => Navigator.pop(context),
-        child: new Text("Acceptar"));
+        child: new Text(cas_text_accept));
   }
 
 }

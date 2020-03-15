@@ -7,8 +7,13 @@ import 'package:inedithos_chat/Controller/ProfileController.dart';
 import 'package:inedithos_chat/Controller/ContactsController.dart';
 import 'package:inedithos_chat/Widgets/Choice.dart';
 import 'package:inedithos_chat/Widgets/Const.dart';
+import 'package:inedithos_chat/Widgets/Loading.dart';
+import 'package:inedithos_chat/lang/cas.dart';
 
-
+/*
+* Draw the shape of the basical main screen that contains tha navigationBarItems
+* and the drop down menu
+ */
 class MainController extends StatefulWidget{
   MainState createState() => new MainState();
 }
@@ -36,7 +41,10 @@ class MainState extends State<MainController>{
     return new FutureBuilder(
         future: FirebaseHelper().auth.currentUser(),
         builder:(BuildContext context, AsyncSnapshot<FirebaseUser> snapshot){
+          //Once we are connected
           if (snapshot.connectionState == ConnectionState.done){
+            //Draw the tabbar
+            //TODO: ios part: this part has to finiched to be the same as android part
             if (Theme.of(context).platform == TargetPlatform.iOS){
               return new CupertinoTabScaffold(
                   tabBar: new CupertinoTabBar(
@@ -58,6 +66,7 @@ class MainState extends State<MainController>{
                   }
               );
             }else{
+              //Android part
               return new DefaultTabController(
                   length: 3,
                   child: new Scaffold(
@@ -71,6 +80,7 @@ class MainState extends State<MainController>{
                         new Tab(icon: new Icon(Icons.account_circle, color:cyan,size: 30.0),),
                       ],
                           indicatorColor: teal400),
+                    //Menu part
                       actions: <Widget>[
                         PopupMenuButton<Choice>(
                           onSelected: onItemMenuPress,
@@ -98,34 +108,17 @@ class MainState extends State<MainController>{
                         ),
                       ],
                     ),
-                    /* appBar: new AppBar(
-                      title: title,
-
-                      bottom: new TabBar(tabs: [
-                        new Tab(icon: new Icon(Icons.message),),
-                        new Tab(icon: new Icon(Icons.supervisor_account),),
-                        new Tab(icon: new Icon(Icons.account_circle),),
-                      ])
-                    ),*/
+                    // call the controllers of every tab to manage the content
                     body: new TabBarView(
                         children: controllers()),
                   )
               );
             }
           }else {
-            //argando
+            //loading page
             return new Scaffold(
               appBar: new AppBar(title: title),
-              body: new Center(
-                child: new Text(
-                  "Cargando ...",
-                  style: new TextStyle(
-                      fontSize: 30.0,
-                      fontStyle: FontStyle.italic,
-                      color: teal400
-                  ),
-                ),
-              ),
+              body: Loading()
             );
           }
         }
@@ -137,7 +130,7 @@ class MainState extends State<MainController>{
   bool isLoading = false;
   String cerrar = 'Cerrar sesión';
   List<Choice> choices = const <Choice>[
-    const Choice(title: 'Cerrar sesión', icon: Icons.exit_to_app),
+    const Choice(title: cas_text_signOut, icon: Icons.exit_to_app),
   ];
 
   void onItemMenuPress(Choice choice) {
@@ -148,7 +141,7 @@ class MainState extends State<MainController>{
 
   Future<void> logOut(BuildContext context) async{
     Text title = new Text(cerrar);
-    Text subtitle = new Text("Seguro que desea cerrar la sesión?");
+    Text subtitle = new Text(cas_text_sureToSignOut);
     return showDialog(
         context: context,
         barrierDismissible: false,
@@ -168,7 +161,7 @@ class MainState extends State<MainController>{
             Navigator.of(build).pop();
           });
         },
-        child: new Text("SI",
+        child: new Text(cas_text_yes,
           style: new TextStyle(
               fontStyle: FontStyle.italic,
               color: teal400
@@ -176,7 +169,7 @@ class MainState extends State<MainController>{
     );
     widgets.add(new FlatButton(
         onPressed: ()=> Navigator.of(build).pop(),
-        child: new Text("NO",
+        child: new Text(cas_text_no,
           style: new TextStyle(
               fontStyle: FontStyle.italic,
               color: teal400

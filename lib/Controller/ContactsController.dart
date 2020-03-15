@@ -5,9 +5,11 @@ import 'package:inedithos_chat/Model/FirebaseHelper.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:inedithos_chat/Model/User.dart';
 import 'package:inedithos_chat/Widgets/CustomImage.dart';
-import 'package:inedithos_chat/Widgets/Const.dart';
+import 'package:inedithos_chat/Widgets/Loading.dart';
 
-
+/*
+* Controller to draw and manage the screen contacts
+ */
 
 class ContactsController extends StatefulWidget{
   String id ;
@@ -27,21 +29,13 @@ class ContactsControllerState extends State<ContactsController> {
     _getUser();
   }
 
+
+
   @override
   Widget build( BuildContext context ) {
     return (currentUser == null)
-        ? new Center(
-      child: new Text(
-        "Cargando ...",
-        style: new TextStyle(
-            fontSize: 30.0,
-            fontStyle: FontStyle.italic,
-            color: teal400
-        ),
-      ),
-    )
-    // get only the users that have the same role than the current one
-   // return
+        ? Loading()
+    // get only the users that are at the same room than the current one
      :new FirebaseAnimatedList(
           query: FirebaseHelper().base_user.orderByChild("room").equalTo(currentUser.room),
           //FirebaseHelper().getRole(widget.id)
@@ -50,8 +44,9 @@ class ContactsControllerState extends State<ContactsController> {
           itemBuilder: ( BuildContext context, DataSnapshot snapshot,
               Animation<double> animation, int index ) {
             User newUser = new User(snapshot);
+            // show users
             if (newUser.id == widget.id) {
-              //usuario actual
+              //We don't have to chow the current user in the list of contacts
               return new Container();
             } else {
               return new ListTile(

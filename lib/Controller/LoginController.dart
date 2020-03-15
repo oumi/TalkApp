@@ -7,7 +7,13 @@ import 'package:inedithos_chat/Widgets/Const.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:inedithos_chat/Model/FirebaseNotifications.dart';
+import 'package:inedithos_chat/Widgets/Loading.dart';
+import 'package:inedithos_chat/lang/cas.dart';
 
+
+/*
+* Class to draw the Login and sign up controller
+ */
 class LoginController extends StatefulWidget {
   LoginControllerState createState() => new LoginControllerState();
 }
@@ -18,10 +24,11 @@ class LoginControllerState extends State<LoginController>{
   String _password;
   String _name;
   String _surname;
-  bool _obscureText = true;
+  bool _obscureText = true;// show or hide the password
   String _title = appName;
   String _role ;
   String _token ;
+  bool loading = false;
   //Notifications
   FirebaseMessaging firebaseMessaging = new FirebaseMessaging();
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
@@ -29,8 +36,8 @@ class LoginControllerState extends State<LoginController>{
   void initState() {
     // TODO: implement initState
     super.initState();
-  // new FirebaseNotifications().intialise();
-
+   // FirebaseNotifications(). localNotificationsSettings(flutterLocalNotificationsPlugin);
+  // _token =  FirebaseNotifications().initialise(firebaseMessaging, flutterLocalNotificationsPlugin);
     var android = new AndroidInitializationSettings('logo');
     var ios = new IOSInitializationSettings();
     var platform = new InitializationSettings(android, ios);
@@ -61,9 +68,12 @@ class LoginControllerState extends State<LoginController>{
     });
     firebaseMessaging.getToken().then((token){
       _token = token;
+      print ('_token ');
+      print (_token);
       //save_token(token);
     });
 }
+
 
   showNotification(Map<String , dynamic> msg) async{
     var android = new AndroidNotificationDetails(
@@ -86,7 +96,9 @@ class LoginControllerState extends State<LoginController>{
 }
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return loading
+        ? Loading()
+        : new Scaffold(
       appBar: new AppBar(title: new Text(_title),),
       body: new SingleChildScrollView(
         child: new Column(
@@ -110,7 +122,7 @@ class LoginControllerState extends State<LoginController>{
             new RaisedButton(
               onPressed: _manageLog,
               color: teal400,
-              child: new Text((_log== true)? 'Conectarse':'Registrarse',
+              child: new Text((_log== true)? cas_text_signIn:cas_text_signUp,
                 style: new TextStyle(
                     color: Colors.white,
                     fontSize: 20.0
@@ -128,11 +140,13 @@ class LoginControllerState extends State<LoginController>{
     if (_mail != null ){
       if ( _password != null){
         if (_log == true){
-          // connectarse
-          FirebaseHelper().handleSignIn(_mail, _password).then((FirebaseUser user){
+          // connecting
+          loading=true;
+          FirebaseHelper().handleSignIn(_mail, _password, _token).then((FirebaseUser user){
             print("tenemos usuario ${user.uid}");
           }).catchError((error) {
-            dialogBox.information(context, "Error",error.toString());
+            loading=false;
+            dialogBox.information(context, cas_error,cas_error_invalidEmailOrPassword);
           });
         }else {
           if (_name != null) {
@@ -144,40 +158,38 @@ class LoginControllerState extends State<LoginController>{
                     .then(( FirebaseUser user ) {
                   print("Se ha creado el usuario ${user.uid}");
                 }).catchError(( error ) {
-                  dialogBox.information(context, "Error", error.toString());
+                  dialogBox.information(context, cas_error, cas_error_invalidEmail);
                 });
               }else {
-                dialogBox.information(context, "Aviso","Para poder regitrarse, Introduzca su rol");
+                //Aviso rol
+                dialogBox.information(context, cas_warning, cas_warning_noRole);
               }
             }else {
               //Aviso apellidos
-              dialogBox.information(context, "Aviso","Para poder regitrarse, Introduzca sus apellidos");
+              dialogBox.information(context, cas_warning,cas_warning_noSurname);
             }
           } else {
             //Aviso nombre
-            dialogBox.information(context, "Aviso","Para poder regitrarse, Introduzca su nombre");
+            dialogBox.information(context, cas_warning,cas_warning_noName);
           }
         }
       }else {
-        print('_manageLog  pass');
-
         // Aviso password
-        dialogBox.information(context,  "Aviso","No se ha introducido la contraseña");
+        dialogBox.information(context,  cas_warning,cas_warning_noPassword);
       }
     }else {
       // Aviso mail
       print('_manageLog  mail');
-      dialogBox.information(context, "Aviso", "No se ha introducido el correo");
+      dialogBox.information(context, cas_warning, cas_warning_noMail);
     }
 
   }
   List<Widget> cardElements () {
     List<Widget> widgets = [];
     widgets.add(
+      // If we have an account already, show email and password
       Container(
         width: MediaQuery.of(context).size.width/1.2,
-        //  height: MediaQuery.of(context).size.height/10,
-        //   margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/50),
         padding: EdgeInsets.all(4),
              decoration: BoxDecoration(
             color: Colors.white,
@@ -194,7 +206,7 @@ class LoginControllerState extends State<LoginController>{
               icon: Icon(Icons.email,
                 color: teal400,
               ),
-              hintText: 'Email',
+              hintText: cas_text_email,
             ),
             onChanged: (string){
               setState(() {
@@ -206,8 +218,6 @@ class LoginControllerState extends State<LoginController>{
     widgets.add(
       Container(
         width: MediaQuery.of(context).size.width/1.2,
-        //  height: MediaQuery.of(context).size.height/10,
-        //  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/50),
         padding: EdgeInsets.all(4),
         decoration: BoxDecoration(
             color: Colors.white,
@@ -238,7 +248,7 @@ class LoginControllerState extends State<LoginController>{
                   _obscureText ? 'show password' : 'hide password',
                 ),
               ),
-              hintText: 'Contraseña',
+              hintText: cas_text_password,
             ),
             onChanged: (string){
               setState(() {
@@ -247,14 +257,11 @@ class LoginControllerState extends State<LoginController>{
         ),
       ),
     );
-    // si no estamos conectados
-
+    // If we don't have an account, show more textfields to sign up
     if (_log == false){
       widgets.add(
         Container(
           width: MediaQuery.of(context).size.width/1.2,
-          //  height: MediaQuery.of(context).size.height/30,
-          //margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/50),
           padding: EdgeInsets.all(4),
           decoration: BoxDecoration(
               color: Colors.white,
@@ -271,7 +278,7 @@ class LoginControllerState extends State<LoginController>{
                 icon: Icon(Icons.person_outline,
                   color: teal400,
                 ),
-                hintText: 'Nombre',
+                hintText: cas_text_name,
               ),
               onChanged: (string){
                 setState(() {
@@ -283,8 +290,6 @@ class LoginControllerState extends State<LoginController>{
       widgets.add(
         Container(
           width: MediaQuery.of(context).size.width/1.2,
-          // height: MediaQuery.of(context).size.height/20,
-          //  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/50),
           padding: EdgeInsets.all(4),
           decoration: BoxDecoration(
               color: Colors.white,
@@ -301,7 +306,7 @@ class LoginControllerState extends State<LoginController>{
                 icon: Icon(Icons.person_outline,
                   color: teal400,
                 ),
-                hintText: 'Apellido',
+                hintText: cas_text_surname,
               ),
               onChanged: (string){
                 setState(() {
@@ -341,62 +346,14 @@ class LoginControllerState extends State<LoginController>{
               });
             },
 
-              hint: Text('  Rol'),
+              hint: Text('  '+cas_text_role),
               value: _role,
               isDense: true,
           ),),
         ),
       );
-    /*  widgets.add(
-        Container(
-          width: MediaQuery.of(context).size.width/1.2,
-          // height: MediaQuery.of(context).size.height/20,
-          //  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/50),
-          padding: EdgeInsets.only(
-              top: 4,left: 16, right: 16, bottom: 4
-          ),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                    color: teal400,
-                    blurRadius: blurRad
-                )
-              ]
-          ),
-          child: new FormField(
-            builder: (FormFieldState state) {
-              return InputDecorator(
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  icon: Icon(Icons.supervised_user_circle, color: teal400,),
-                  labelText: 'Role',
-                ),
-                isEmpty: _role == '',
-             //   child: new DropdownButtonHideUnderline(
-                  child: new DropdownButton(
-                    value: _role,
-                    isDense: true,
-                    onChanged: (String newValue) {
-                      setState(() {
-                        _role = newValue;
-                        state.didChange(newValue);
-                      });
-                    },
-                    items: defaultRoles.map((String value) {
-                      return new DropdownMenuItem(
-                        value: value,
-                        child: new Text(value),
-                      );
-                    }).toList(),
-                  ),
-                //),
-              );
-            },
-          ),
-        ),
-      );*/
     }
+    //Switch between the 2 screens: login and sign up
     widgets.add(
         new FlatButton(
             onPressed: (){
@@ -411,8 +368,8 @@ class LoginControllerState extends State<LoginController>{
               ),
               child: new Text(
                 (_log == true)
-                  ? "¿No tiene cuenta?, pulsa aquí"
-                  : "¿Ya tiene cuenta?, pulsa aquí",
+                  ? cas_text_noAccountYet + cas_text_PressHere
+                  :  cas_text_haveAccount + cas_text_PressHere,
                 style: TextStyle(
                     color: Colors.black54
                 ),

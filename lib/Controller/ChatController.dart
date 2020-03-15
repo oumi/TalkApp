@@ -21,7 +21,9 @@ class ChatController extends StatefulWidget{
 ChatControllerState createState() => new ChatControllerState();
 
 }
-
+/* This controller is used to draw the chat screen
+* and its details
+ */
 class ChatControllerState extends State<ChatController>{
 
   @override
@@ -32,7 +34,7 @@ class ChatControllerState extends State<ChatController>{
         mainAxisAlignment: MainAxisAlignment.center,
         children : <Widget>[
           new CustomImage(widget.partner.imageUrl, widget.partner.initiales, 20.0),
-          new Text(widget.partner.name)
+          new Text(' '+widget.partner.name)
         ],
       ),
       ),
@@ -41,14 +43,15 @@ class ChatControllerState extends State<ChatController>{
           onTap: ()=>FocusScope.of(context).requestFocus(new FocusNode()),
           child: new Column(
             children: <Widget>[
-              //Zona de chat
+              //chat zone:  here we show the messages
               new Flexible(child: new FirebaseAnimatedList(
                   query: FirebaseHelper().base_message.child(FirebaseHelper().getMessageRef(widget.id, widget.partner.id)),
-                  sort: (a,b) => b.key.compareTo(a.key),// Ir a la ultima linea de chat
+                  sort: (a,b) => b.key.compareTo(a.key),//when opening the chat screen, put the cursor in the last message
                   reverse: true,
                   itemBuilder: (BuildContext context, DataSnapshot snapshot, Animation<double> animation, int index ){
                     Message message = new Message(snapshot);
                     print (message.text);
+                    // Draw every chat buble
                     return new ChatBubble(widget.id, widget.partner, message, animation);
                   })
               ),

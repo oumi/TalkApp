@@ -6,6 +6,9 @@ import 'package:inedithos_chat/Model/User.dart';
 import 'dart:io';
 import 'dart:async';
 
+/*
+* Class to manage the text area tha we use when sending messages
+ */
 
 class TextAreaWidget extends StatefulWidget{
   User partner;
@@ -43,10 +46,12 @@ class AreaState extends State<TextAreaWidget>{
       color: Colors.grey[250],
       padding: EdgeInsets.all(5.0),
       child: new Row(
+        // draw and maange the icons of the text area
         children: <Widget>[
           new IconButton(icon: new Icon(Icons.camera_enhance),  tooltip: 'Change Color',  onPressed: ()=> takePicture(ImageSource.camera) ),
           new IconButton(icon: new Icon(Icons.photo_library),   tooltip: 'Change Color', onPressed: ()=> takePicture(ImageSource.gallery) ),
           new IconButton(icon: new Icon(Icons.attach_file),   tooltip: 'Change Color', onPressed: atachFile),
+          // area to write messages
           new Flexible(
             child: new TextField(
               controller: _textEditingController,
@@ -54,6 +59,7 @@ class AreaState extends State<TextAreaWidget>{
               maxLines: null,
             ),
           ),
+          // manage the send button
           new IconButton(icon: new Icon(Icons.send),  tooltip: 'Change Color', onPressed: _sendButtonPressed),
         ],
       ),

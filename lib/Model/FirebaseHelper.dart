@@ -9,15 +9,27 @@ class FirebaseHelper {
   //connexion
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  Future<FirebaseUser> handleSignIn(String email, String password) async {
+  updateToken(User currentUser, String token){
+    Map map = currentUser.toMap();
+    map["token"] = token;
+    FirebaseHelper().addUser(currentUser.id, map);
+  }
+
+  Future<FirebaseUser> handleSignIn(String email, String password, String token) async {
 
     AuthResult result = await auth.signInWithEmailAndPassword(email: email, password: password);
     final FirebaseUser user = result.user;
-    /*assert(user != null);
-    assert(await user.getIdToken() != null);
+    //Compare the new token to that one we saved on signing up and update if it changed
+    User currentUser = User(await base_user.child(user.uid).once());
+    print('currentToken '+ currentUser.token);
+    print('new Token '+ token);
+    if (currentUser.token != token && currentUser.token != null) {
+    print('update token');
+    updateToken(currentUser, token);
 
-    final FirebaseUser currentUser = await auth.currentUser();
-    assert(user.uid == currentUser.uid);*/
+    }
+
+
 
     print('signInEmail succeeded: $user.validated');
     return user;

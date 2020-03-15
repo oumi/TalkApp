@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:inedithos_chat/Widgets/Const.dart';
+import 'package:inedithos_chat/lang/cas.dart';
 
 class CustomImage extends StatelessWidget{
   String imageUrl;
@@ -35,7 +36,7 @@ class CustomImage extends StatelessWidget{
         },
       );
     }else {
-      return new InkWell(// cuando se parieta sobre la imágen, se puede hacer más grande
+      return new InkWell(// Zoom the image when we click above
         child: new CircleAvatar(
           radius: radius,
           backgroundImage: provider,
@@ -70,7 +71,7 @@ class CustomImage extends StatelessWidget{
                 new RaisedButton(
                    color: teal400,
                     onPressed: ( ) => Navigator.of(build).pop(),
-                    child: new Text("OK", style: new TextStyle(
+                    child: new Text(cas_text_accept, style: new TextStyle(
                         color: Colors.white, fontSize: 20.0),))
               ],
             ),
