@@ -69,3 +69,30 @@ Queda asi
     "source": "functions"
   }
 }
+
+
+
+## Crear nuevo proyecto firebase:
+- Primero, creamos un nuevo proyecto con el nombre del id que esta en android gradle
+- Luego, habilitamos en authentication--> sign in method: email/password: enabled
+-  Cambiar en Database los rules a 
+{
+  "rules": {
+    ".read": "auth !=null",
+      "conversations": {
+            ".write": "auth != null"
+          },
+            
+      "messages": {
+            ".write": "auth != null"
+          },
+               
+      "users": {
+        "$uid":{
+          ".write": "$uid === auth.uid"
+        },
+         
+      },
+  },
+}
+
