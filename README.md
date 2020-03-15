@@ -76,6 +76,7 @@ Queda asi
 - Primero, creamos un nuevo proyecto con el nombre del id que esta en android gradle
 - Luego, habilitamos en authentication--> sign in method: email/password: enabled
 -  Cambiar en Database los rules a 
+--------------------------------------------
 {
   "rules": {
     ".read": "auth !=null",
