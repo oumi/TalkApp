@@ -71,6 +71,10 @@ Queda asi
 }
 
 
+## 2 Error flutter no se reconoce como un comando interno o externo
+https://stackoverflow.com/questions/49609889/flutter-doctor-doesnt-work-on-neither-command-prompt-or-powershell-window
+
+
 
 ## Crear nuevo proyecto firebase:
 - Primero, creamos un nuevo proyecto con el nombre del id que esta en android gradle
