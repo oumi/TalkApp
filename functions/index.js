@@ -41,6 +41,4 @@ exports.sendNotification = functions.database
 								}
                              });
          });
-
-
     });
