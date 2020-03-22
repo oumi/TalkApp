@@ -34,11 +34,11 @@ dependencies:
   flutter_launcher_icons: ^0.7.4
   grouped_list: ^1.2.1
   flutter_pdfview: ^1.0.0+10
-  path_provider: ^1.6.1
+  path_provider: ^1.6.5
   http:
   dio: any
   open_file: any
-  downloads_path_provider: ^0.1.0
+  downloads_path_provider: any
   firebase_messaging: ^6.0.9
   flutter_local_notifications: ^1.2.0+3
   flutter_spinkit: "^4.1.2"

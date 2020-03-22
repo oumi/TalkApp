@@ -29,15 +29,15 @@ class LoginControllerState extends State<LoginController>{
   String _role ;
   String _token ;
   bool loading = false;
-  //Notifications
+
   FirebaseMessaging firebaseMessaging = new FirebaseMessaging();
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
-@override
+
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
-   // FirebaseNotifications(). localNotificationsSettings(flutterLocalNotificationsPlugin);
-  // _token =  FirebaseNotifications().initialise(firebaseMessaging, flutterLocalNotificationsPlugin);
+
     var android = new AndroidInitializationSettings('logo');
     var ios = new IOSInitializationSettings();
     var platform = new InitializationSettings(android, ios);
@@ -68,12 +68,9 @@ class LoginControllerState extends State<LoginController>{
     });
     firebaseMessaging.getToken().then((token){
       _token = token;
-      print ('_token ');
-      print (_token);
       //save_token(token);
     });
-}
-
+  }
 
   showNotification(Map<String , dynamic> msg) async{
     var android = new AndroidNotificationDetails(
@@ -93,7 +90,9 @@ class LoginControllerState extends State<LoginController>{
         msg['notification']['body'],
         platform);
 
-}
+  }
+  /////////////////////////////////////////////////////////
+
   @override
   Widget build(BuildContext context) {
     return loading
