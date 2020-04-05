@@ -26,10 +26,14 @@ const cas_text_signIn = 'Conectarse';
 const cas_text_signUp = 'Registrarse';
 const cas_text_signOut = 'Cerrar sesión';
 const cas_text_sureToSignOut = 'Seguro que desea cerrar la sesión?';
-const cas_text_haveAccount  = '¿Ya tiene cuenta?,';
-const cas_text_noAccountYet  = '¿No tiene cuenta?,';
-const cas_text_PressHere = 'pulse aquí';
-
+const cas_text_haveAccount  = '¿Ya tiene cuenta? ';
+const cas_text_noAccountYet  = '¿No tiene cuenta? ';
+const cas_text_pressHere = 'pulse aquí';
+const cas_text_file_sent = 'Envío realizado';
+const cas_text_yo = 'Yo';
+const cas_text_writeSomething = 'Escirbir algo...';
+const cas_text_myDocument = 'Mi documento';
+const cas_text_seeDocument = 'Ver documento';
 //Roles
 const cas_text_role = 'Rol';
 const cas_text_role_teacher = 'Docente';

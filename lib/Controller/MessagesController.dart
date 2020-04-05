@@ -5,6 +5,7 @@ import 'package:inedithos_chat/Model/Conversation.dart';
 import 'package:inedithos_chat/Model/FirebaseHelper.dart';
 import 'package:inedithos_chat/Widgets/CustomImage.dart';
 import 'package:inedithos_chat/Controller/ChatController.dart';
+import 'package:inedithos_chat/lang/cas.dart';
 
 class MessagesController extends StatefulWidget{
   String id ;
@@ -25,8 +26,8 @@ class MessagesControllerState extends State<MessagesController>{
       sort: (a,b)=>  b.value["dateString"].compareTo(a.value["dateString"]),
       itemBuilder: (BuildContext context, DataSnapshot snapshot, Animation<double> animation, int index){
         Conversation conversation = new Conversation(snapshot);
-        String subtitle = (conversation.id == widget.id)? "Me: " : "";
-        subtitle += conversation.last_message ?? "Envío realizado";
+        String subtitle = (conversation.id == widget.id)? cas_text_yo+": " : "";
+        subtitle += conversation.last_message ?? cas_text_file_sent;
         return new ListTile(
           leading: new CustomImage(conversation.user.imageUrl, conversation.user.initiales, 20.0),
           title: new Text("${conversation.user.name}  ${conversation.user.surname}"),

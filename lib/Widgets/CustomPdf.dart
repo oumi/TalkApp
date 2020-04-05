@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:downloads_path_provider/downloads_path_provider.dart';
+import 'package:inedithos_chat/lang/cas.dart';
 
 class CustomPdf extends StatelessWidget{
   String fileUrl;
@@ -38,7 +39,7 @@ class CustomPdf extends StatelessWidget{
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             new Icon(Icons.picture_as_pdf, color: Colors.red, size: 40,),
-            new Text ('fichero.pdf', style: new TextStyle(color: Colors.indigoAccent, fontSize: 20.0),),
+            new Text ('Ver PDF', style: new TextStyle(color: Colors.indigoAccent, fontSize: 20.0),),
           ],
         ),
 
@@ -95,7 +96,7 @@ class _PdfViewPageState extends State<PdfViewPage> {
             color: Colors.white,),
         ) : null,
         appBar: AppBar(
-          title: Text("My Doccument"),
+          title: Text(cas_text_myDocument),
         ),
         body: Stack(
           children: <Widget>[

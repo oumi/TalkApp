@@ -3,7 +3,6 @@ import 'package:inedithos_chat/Model/Message.dart';
 import 'package:inedithos_chat/Model/User.dart';
 import 'package:inedithos_chat/Widgets/CustomImage.dart';
 import 'package:inedithos_chat/Widgets/CustomPdf.dart';
-import 'dart:math';
 
 /*
 * Draw the chat bubble of every conversation
@@ -70,7 +69,7 @@ class ChatBubble extends StatelessWidget{
                             ),
                           )
                         : new CustomPdf(message.fileUrl)
-                    )
+                     )
                         : new CustomImage(message.imageUrl, null, null)
                 ),
               )

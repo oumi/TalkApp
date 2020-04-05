@@ -93,6 +93,12 @@ class LoginControllerState extends State<LoginController>{
   }
   /////////////////////////////////////////////////////////
 
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return loading
@@ -367,8 +373,8 @@ class LoginControllerState extends State<LoginController>{
               ),
               child: new Text(
                 (_log == true)
-                  ? cas_text_noAccountYet + cas_text_PressHere
-                  :  cas_text_haveAccount + cas_text_PressHere,
+                  ? cas_text_noAccountYet + cas_text_pressHere
+                  :  cas_text_haveAccount + cas_text_pressHere,
                 style: TextStyle(
                     color: Colors.black54
                 ),

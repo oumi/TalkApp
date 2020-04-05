@@ -13,8 +13,6 @@ import 'package:inedithos_chat/lang/cas.dart';
 class ProfileController extends StatefulWidget{
   String id ;
 
-  var _controller = TextEditingController();
-
   ProfileController(String id ){
     this.id= id;
   }
@@ -92,8 +90,6 @@ class ProfileControllerState extends State<ProfileController>{
               onPressed: _saveChanges,
               child: new Text (cas_text_saveChanges, style: new TextStyle(color: Colors.white, fontSize: 20.0),),
             ),
-
-
           ],
         ),
       ),

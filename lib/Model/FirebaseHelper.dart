@@ -26,11 +26,7 @@ class FirebaseHelper {
     if (currentUser.token != token && currentUser.token != null) {
     print('update token');
     updateToken(currentUser, token);
-
     }
-
-
-
     print('signInEmail succeeded: $user.validated');
     return user;
 
@@ -59,7 +55,6 @@ class FirebaseHelper {
   }
 
   Future<bool> handleLogOut() async {
-
       await auth.signOut();
       return true;
   }
@@ -118,11 +113,10 @@ class FirebaseHelper {
     return result;
   }
 
-//Storage
+//Storage: TODO:we have to initialise firebase storage. if not it will give us 404 exception 'Not Found.  Could not access bucket'
  static final base_storage = FirebaseStorage.instance.ref();
   final StorageReference storage_users = base_storage.child("users");
   final StorageReference storage_message = base_storage.child("messages");
-
 
   Future<String> saveFile ( File file, StorageReference ref) async {
     StorageUploadTask storageUploadTask = ref.putFile(file);

@@ -12,6 +12,8 @@ exports.sendNotification = functions.database
         const receiver = snapshot.val().to;
         const sender = snapshot.val().from;
         const textMessage = snapshot.val().text;
+        const fileMessage = snapshot.val().fileUrl;
+        const imageMessage = snapshot.val().imageUrl;
          console.log('to ', receiver);
          console.log('from ', sender);
          console.log('text  ', textMessage);
@@ -25,7 +27,7 @@ exports.sendNotification = functions.database
                         title: `${senderData.val().name}`,
                         body: textMessage
                           ? textMessage.length <= 100 ? textMessage : textMessage.substring(0, 97) + "..."
-                          : ""
+                          : (fileMessage|| imageMessage)? 'Envío realizado' :""
                          }
                     };
                   return admin

@@ -5,6 +5,7 @@ import 'package:inedithos_chat/Model/FirebaseHelper.dart';
 import 'package:inedithos_chat/Model/User.dart';
 import 'dart:io';
 import 'dart:async';
+import 'package:inedithos_chat/lang/cas.dart';
 
 /*
 * Class to manage the text area tha we use when sending messages
@@ -55,7 +56,7 @@ class AreaState extends State<TextAreaWidget>{
           new Flexible(
             child: new TextField(
               controller: _textEditingController,
-              decoration: new InputDecoration.collapsed(hintText: "Escirbir algo..."),
+              decoration: new InputDecoration.collapsed(hintText: cas_text_writeSomething),
               maxLines: null,
             ),
           ),
@@ -71,24 +72,22 @@ class AreaState extends State<TextAreaWidget>{
       String text = _textEditingController.text;
       FirebaseHelper().sendMessage(widget.partner, me, text, null, null);
       _textEditingController.clear();
-      FocusScope.of(context).requestFocus(new FocusNode());
+      //FocusScope.of(context).requestFocus(new FocusNode());
     }else {
       print ("No hay texto");
     }
   }
 
   Future<void> takePicture(ImageSource source) async{
-    print('entro ');
     File file = await ImagePicker.pickImage(source: source, maxWidth: 1000.0, maxHeight: 1000.0);
     String date = new DateTime.now().millisecondsSinceEpoch.toString();
     FirebaseHelper().saveFile(file, FirebaseHelper().storage_message.child(widget.id).child(date)).then((string){
-      print('hola');
       FirebaseHelper().sendMessage(widget.partner, me, null, string, null);
     });
   }
 
   Future<void> atachFile() async{
-    File file = await FilePicker.getFile(type: FileType.CUSTOM, fileExtension: 'pdf');
+    File file = await FilePicker.getFile(type: FileType.custom, fileExtension: 'pdf');
     if (file != null) {
       String date = new DateTime.now().millisecondsSinceEpoch.toString();
       date = date+'_'+file.path.split('/').last;
