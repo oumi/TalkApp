@@ -87,7 +87,7 @@ class AreaState extends State<TextAreaWidget>{
   }
 
   Future<void> atachFile() async{
-    File file = await FilePicker.getFile(type: FileType.custom, fileExtension: 'pdf');
+    File file = await FilePicker.getFile(type: FileType.custom, allowedExtensions: ['pdf']);
     if (file != null) {
       String date = new DateTime.now().millisecondsSinceEpoch.toString();
       date = date+'_'+file.path.split('/').last;

@@ -41,8 +41,8 @@ class ChatBubble extends StatelessWidget{
  */
   List<Widget> widgetsBubble(bool me){
     CrossAxisAlignment alignment = (me)? CrossAxisAlignment.end : CrossAxisAlignment.start;
-    Color bubbleColor = (me)? Colors.green[200]: Colors.blue[300];
-    Color textColor =(me)? Colors.black: Colors.grey[200];
+    Color bubbleColor = (me)? Colors.pink[200]: Colors.green[300];
+    Color textColor =(me)? Colors.grey[200]: Colors.grey[200];
 
     return <Widget>[
       me ? new Padding(padding: EdgeInsets.all(10.0)): new CustomImage(partner.imageUrl, partner.initiales, 20.0),
@@ -59,17 +59,17 @@ class ChatBubble extends StatelessWidget{
                     padding: EdgeInsets.all(10.0),
                     child:
                      (message.imageUrl == null)
-                        ? ((message.fileUrl == null)
+                       ? ((message.fileUrl == null)
                         ? new Text(
                           message.text ?? "",
                           style: new TextStyle(
                               color: textColor,
                               fontSize: 15.0,
-                              fontStyle: FontStyle.italic
+                              fontStyle: FontStyle.normal
                             ),
                           )
                         : new CustomPdf(message.fileUrl)
-                     )
+                    )
                         : new CustomImage(message.imageUrl, null, null)
                 ),
               )
