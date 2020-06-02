@@ -2,16 +2,7 @@
 
 Aplicación de chat
 
-## Desarrollo 
-##Notificaciones 
 
-Para las notificaciones, primero hay que instalar nodejs para poder utilizar las parte de "firebase functions" que están en javascript. 
-Hay que seguir las recomendaciones de la siguiente página: 
-https://firebase.google.com/docs/functions/get-started?fbclid=IwAR0HvmcTILsjCHVXqJgUjGlWCWwiWU4Dy0dR3aAeLIKaDXjWLUF4rwCc-7w
-
-o bien pimero instalar node a partir de este video:
-https://www.youtube.com/watch?v=F41Y-rpdlVM
-y de alli ya seguir para el firebase-tools en la página de arriba.
 
 ## Errores 
 ## 1 Error funciones 
@@ -74,7 +65,16 @@ Queda asi
 ## 2 Error flutter no se reconoce como un comando interno o externo
 https://stackoverflow.com/questions/49609889/flutter-doctor-doesnt-work-on-neither-command-prompt-or-powershell-window
 
+## Desarrollo 
+##Notificaciones 
 
+Para las notificaciones, primero hay que instalar nodejs para poder utilizar las parte de "firebase functions" que están en javascript. 
+Hay que seguir las recomendaciones de la siguiente página: 
+https://firebase.google.com/docs/functions/get-started?fbclid=IwAR0HvmcTILsjCHVXqJgUjGlWCWwiWU4Dy0dR3aAeLIKaDXjWLUF4rwCc-7w
+
+o bien pimero instalar node a partir de este video:
+https://www.youtube.com/watch?v=F41Y-rpdlVM
+y de alli ya seguir para el firebase-tools en la página de arriba.
 
 ## Crear nuevo proyecto firebase y preparación del entorno:
 - Primero, creamos un nuevo proyecto con el nombre del id que esta en android gradle
