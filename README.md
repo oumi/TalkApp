@@ -76,7 +76,7 @@ https://stackoverflow.com/questions/49609889/flutter-doctor-doesnt-work-on-neith
 
 
 
-## Crear nuevo proyecto firebase:
+## Crear nuevo proyecto firebase y preparación del entorno:
 - Primero, creamos un nuevo proyecto con el nombre del id que esta en android gradle
 - Luego, habilitamos en authentication--> sign in method: email/password: enabled
 -  Cambiar en Database los rules a 
@@ -100,4 +100,12 @@ https://stackoverflow.com/questions/49609889/flutter-doctor-doesnt-work-on-neith
       },
   },
 }
+- Configurar CLoud Storage 
+Hay que configurar cloud storage estbleciendo reglas para la escritura y lectura que en este caso solo se permite para usuarios autenticados. Tambien, se establece una ubicación que indica donde se almacenarán los segmentos predeterminados de cloud storage y sus datos, que en este caso es ‘eur3’ que se refiere a Europa.
+
+
+ - Añadir el servicio a la aplicación en desarrollo 
+ Para el registro de la aplicación en firebase, se siguen los siguientes pasos. https://firebase.google.com/docs/android/setup
+ 
+ 
 
