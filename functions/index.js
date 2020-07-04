@@ -27,7 +27,9 @@ exports.sendNotification = functions.database
                         title: `${senderData.val().name}`,
                         body: textMessage
                           ? textMessage.length <= 100 ? textMessage : textMessage.substring(0, 97) + "..."
-                          : (fileMessage|| imageMessage)? 'Envío realizado' :""
+                          : (fileMessage|| imageMessage)? 'Envío realizado' :"",
+                          tag: receiver,
+                          click_action: 'FLUTTER_NOTIFICATION_CLICK'
                          }
                     };
                   return admin

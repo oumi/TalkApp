@@ -56,7 +56,7 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "images/logo.png"
+  #image_path: "images/logo.png"
 
 flutter_launcher_name:
   name: "TalkApp"
@@ -73,8 +73,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-    - images/logo.png
+ # assets:
+ #   - images/logo.png
 
   #  - images/a_dot_ham.jpeg
 

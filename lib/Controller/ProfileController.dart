@@ -117,6 +117,11 @@ class ProfileControllerState extends State<ProfileController>{
       dialogBox.information(
           context, cas_note,
           cas_note_changeSaved);
+    }else {
+      dialogBox.information(
+
+          context, cas_note,
+          cas_note_noChangesToSave);
     }
   }
 

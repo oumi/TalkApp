@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:inedithos_chat/Widgets/Const.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:inedithos_chat/Model/FirebaseNotifications.dart';
+//import 'package:inedithos_chat/Model/FirebaseNotifications.dart';
 import 'package:inedithos_chat/Widgets/Loading.dart';
 import 'package:inedithos_chat/lang/cas.dart';
 
@@ -38,7 +38,7 @@ class LoginControllerState extends State<LoginController>{
     // TODO: implement initState
     super.initState();
 
-    var android = new AndroidInitializationSettings('logo');
+    var android = new AndroidInitializationSettings('@mipmap/ic_launcher');
     var ios = new IOSInitializationSettings();
     var platform = new InitializationSettings(android, ios);
     flutterLocalNotificationsPlugin.initialize(platform);
@@ -163,7 +163,7 @@ class LoginControllerState extends State<LoginController>{
                     .then(( FirebaseUser user ) {
                   print("Se ha creado el usuario ${user.uid}");
                 }).catchError(( error ) {
-                  dialogBox.information(context, cas_error, cas_error_invalidEmail);
+                  dialogBox.information(context, cas_error, cas_error_invalidEmailOrPassword);
                 });
               }else {
                 //Aviso rol

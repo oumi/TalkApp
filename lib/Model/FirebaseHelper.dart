@@ -91,15 +91,21 @@ class FirebaseHelper {
     "dateString": date
   };
   base_message.child(getMessageRef(me.id, user.id)).child(date).set(map);
-  base_conversation.child(me.id).child(user.id).set(getConversation(me.id, user, text, date));
-  base_conversation.child(user.id).child(me.id).set(getConversation(me.id, me, text, date));
+  base_conversation.child(me.id).child(user.id).set(getConversation(me.id, user, text, date, 'X' ));
+  base_conversation.child(user.id).child(me.id).set(getConversation(me.id, me, text, date, 'N'));
   }
 
-  Map getConversation(String sender, User user, String text, String dateString){
+  readConversation(User me, User user , String text){
+    String date = new DateTime.now().millisecondsSinceEpoch.toString();
+    base_conversation.child(me.id).child(user.id).set(getConversation(me.id, user, text, date, 'X'));
+  }
+
+  Map getConversation(String sender, User user, String text, String dateString, String state){
    Map map = user.toMap();
    map["myId"]= sender;
    map["last_message"] = text;
    map["dateString"]  = dateString;
+   map["state"]  = state;
    return map;
   }
 

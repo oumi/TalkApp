@@ -12,6 +12,7 @@ const cas_warning_noRole = 'Por favor, Introduzca sus apellidos';
 //Managing notes
 const cas_note = 'Nota';
 const cas_note_changeSaved = 'Los cambios han sido guardados correctamente.';
+const cas_note_noChangesToSave = 'No ha habido cambios.';
 
 //Managing text 
 const cas_text_yes = 'Si';
@@ -21,7 +22,7 @@ const cas_text_surname = 'Apellido';
 const cas_text_email = 'Correo';
 const cas_text_password = 'Contraseña';
 const cas_text_saveChanges = 'Guardar cambios';
-const cas_text_accept = 'Acceptar';
+const cas_text_accept = 'Aceptar';
 const cas_text_signIn = 'Conectarse';
 const cas_text_signUp = 'Registrarse';
 const cas_text_signOut = 'Cerrar sesión';
