@@ -51,7 +51,7 @@ class AreaState extends State<TextAreaWidget>{
         children: <Widget>[
           new IconButton(icon: new Icon(Icons.camera_enhance),  tooltip: 'Change Color',  onPressed: ()=> takePicture(ImageSource.camera) ),
           new IconButton(icon: new Icon(Icons.photo_library),   tooltip: 'Change Color', onPressed: ()=> takePicture(ImageSource.gallery) ),
-        //  new IconButton(icon: new Icon(Icons.attach_file),   tooltip: 'Change Color', onPressed: atachFile),
+          new IconButton(icon: new Icon(Icons.attach_file),   tooltip: 'Change Color', onPressed: atachFile),
           // area to write messages
           new Flexible(
             child: new TextField(

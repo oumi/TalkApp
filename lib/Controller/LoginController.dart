@@ -10,7 +10,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:inedithos_chat/Widgets/Loading.dart';
 import 'package:inedithos_chat/lang/cas.dart';
 
-
 /*
 * Class to draw the Login and sign up controller
  */
