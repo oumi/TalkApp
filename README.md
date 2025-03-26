@@ -1,9 +1,7 @@
 # inedithos_chat
 Este es el artículo derivado que describe la funcionalidad desarrollada en este proyecto.
 https://www.researchgate.net/publication/351107534_Diseno_de_una_app_de_comunicacion_dirigida_al_entorno_de_ninos_con_enfermedades_raras_familia_sanitarios_y_educadores
-También, se puede encontrar más información en el congreso 
-Aplicación de chat
-
+También, se puede encontrar más información en el congreso https://atica.web.uah.es/documentos/LibroActasATICA2020.pdf
 
 
 ## Errores 
