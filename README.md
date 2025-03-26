@@ -3,8 +3,50 @@ Este es el artículo derivado que describe la funcionalidad desarrollada en este
 https://www.researchgate.net/publication/351107534_Diseno_de_una_app_de_comunicacion_dirigida_al_entorno_de_ninos_con_enfermedades_raras_familia_sanitarios_y_educadores
 También, se puede encontrar más información en el congreso https://atica.web.uah.es/documentos/LibroActasATICA2020.pdf
 
+## Desarrollo 
 
-## Errores 
+## Crear nuevo proyecto firebase y preparación del entorno:
+- Primero, creamos un nuevo proyecto con el nombre del id que esta en android gradle
+- Luego, habilitamos en authentication--> sign in method: email/password: enabled
+-  Cambiar en Database los rules a 
+--------------------------------------------
+{
+  "rules": {
+    ".read": "auth !=null",
+      "conversations": {
+            ".write": "auth != null"
+          },
+            
+      "messages": {
+            ".write": "auth != null"
+          },
+               
+      "users": {
+        "$uid":{
+          ".write": "$uid === auth.uid"
+        },
+         
+      },
+  },
+}
+- Configurar CLoud Storage 
+Hay que configurar cloud storage estbleciendo reglas para la escritura y lectura que en este caso solo se permite para usuarios autenticados. Tambien, se establece una ubicación que indica donde se almacenarán los segmentos predeterminados de cloud storage y sus datos, que en este caso es ‘eur3’ que se refiere a Europa.
+
+
+ - Añadir el servicio a la aplicación en desarrollo 
+ Para el registro de la aplicación en firebase, se siguen los siguientes pasos. https://firebase.google.com/docs/android/setup
+ 
+ ##Notificaciones 
+
+Para las notificaciones, primero hay que instalar nodejs para poder utilizar las parte de "firebase functions" que están en javascript. 
+Hay que seguir las recomendaciones de la siguiente página: 
+https://firebase.google.com/docs/functions/get-started?fbclid=IwAR0HvmcTILsjCHVXqJgUjGlWCWwiWU4Dy0dR3aAeLIKaDXjWLUF4rwCc-7w
+
+o bien pimero instalar node a partir de este video:
+https://www.youtube.com/watch?v=F41Y-rpdlVM
+y de alli ya seguir para el firebase-tools en la página de arriba.
+
+## Errores corregidos a tener en cuenta 
 ## 1 Error funciones 
 Cuando se instalan las funciones con la página de arriba, da este error a la hora de hacer deploy
 
@@ -64,48 +106,5 @@ Queda asi
 
 ## 2 Error flutter no se reconoce como un comando interno o externo
 https://stackoverflow.com/questions/49609889/flutter-doctor-doesnt-work-on-neither-command-prompt-or-powershell-window
-
-## Desarrollo 
-
-## Crear nuevo proyecto firebase y preparación del entorno:
-- Primero, creamos un nuevo proyecto con el nombre del id que esta en android gradle
-- Luego, habilitamos en authentication--> sign in method: email/password: enabled
--  Cambiar en Database los rules a 
---------------------------------------------
-{
-  "rules": {
-    ".read": "auth !=null",
-      "conversations": {
-            ".write": "auth != null"
-          },
-            
-      "messages": {
-            ".write": "auth != null"
-          },
-               
-      "users": {
-        "$uid":{
-          ".write": "$uid === auth.uid"
-        },
-         
-      },
-  },
-}
-- Configurar CLoud Storage 
-Hay que configurar cloud storage estbleciendo reglas para la escritura y lectura que en este caso solo se permite para usuarios autenticados. Tambien, se establece una ubicación que indica donde se almacenarán los segmentos predeterminados de cloud storage y sus datos, que en este caso es ‘eur3’ que se refiere a Europa.
-
-
- - Añadir el servicio a la aplicación en desarrollo 
- Para el registro de la aplicación en firebase, se siguen los siguientes pasos. https://firebase.google.com/docs/android/setup
- 
- ##Notificaciones 
-
-Para las notificaciones, primero hay que instalar nodejs para poder utilizar las parte de "firebase functions" que están en javascript. 
-Hay que seguir las recomendaciones de la siguiente página: 
-https://firebase.google.com/docs/functions/get-started?fbclid=IwAR0HvmcTILsjCHVXqJgUjGlWCWwiWU4Dy0dR3aAeLIKaDXjWLUF4rwCc-7w
-
-o bien pimero instalar node a partir de este video:
-https://www.youtube.com/watch?v=F41Y-rpdlVM
-y de alli ya seguir para el firebase-tools en la página de arriba.
 
 
